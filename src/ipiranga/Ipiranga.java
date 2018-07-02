@@ -62,24 +62,34 @@ public class Ipiranga {
 	public synchronized void abastece(Frentista frentista) {
 		try {
 			while (fila.size()==0) {
-				System.out.println("eu sou "+frentista.getNome()+ ", nao tem carro na fila :( && vou dormir! ");
+				if(frentista.dormindo != true){
+					System.out.println("eu sou "+frentista.getNome()+ ", nao tem carro na fila :( && vou dormir! ");
+				}
 				frentista.dormindo = true;
 				wait();
+				
 			}
-			if (litros >= 100 && fila.size() != 0) {
-					if(frentista.dormindo){
-						frentista.dormindo = false;//verifica se o frentista estava dormindo, caso não estivesse ele abastece sem printar que acordou
-						System.out.println("ACORDEI CALMA AÍ - disse " + frentista.getNome());			
-					}
-					System.out.println(fila.getFirst().getIdentificador()+" sendo abastecido por: " + frentista.getNome());
-					fila.getFirst().setAbastecido(true);
-					fila.getFirst().fila = false;
-					
-					fila.removeFirst();
-					litros -= 100;
-//					Thread.sleep(1000);
-					wait(getAleatorio());
-					notifyAll();
+			if(!getCaminhaoChegou()){				
+				if (litros >= 100 && fila.size() != 0) {
+						if(frentista.dormindo){
+							System.out.println("ACORDEI CALMA AÍ - disse " + frentista.getNome());			
+							frentista.dormindo = false;//verifica se o frentista estava dormindo, caso não estivesse ele abastece sem printar que acordou
+						}
+						System.out.println(fila.getFirst().getIdentificador()+" sendo abastecido por: " + frentista.getNome());
+						fila.getFirst().setAbastecido(true);
+						fila.getFirst().fila = false;
+						
+						fila.removeFirst();
+						litros -= 100;
+	//					Thread.sleep(1000);
+						wait(getAleatorio());
+						notifyAll();
+				}
+			}else{
+				System.out.println("caminhão chegou, o frentista " + frentista.getNome() + " esta esperando");
+				frentista.esperando = true;
+				wait();
+				frentista.esperando = false;
 			}
 			
 			

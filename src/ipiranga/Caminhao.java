@@ -22,6 +22,6 @@ public class Caminhao extends Thread{
 	}
 	public int esperaPraAbastecer(){
 		Random rand = new Random();
-		return (rand.nextInt(50000) + 10000);
+		return (rand.nextInt(40000) + 10000);
 	}
 }
