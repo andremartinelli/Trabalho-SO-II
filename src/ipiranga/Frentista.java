@@ -20,22 +20,21 @@ public class Frentista extends Thread {
 					posto.abastece(this);
 				}
 				System.out.print(""); //porque quando tira esse print para de funcionar????
-				if(posto.getCaminhaoChegou() == true){
-					this.esperando = true;
+				if(posto.getCaminhaoChegou() == true){//se o caminhao chegar
+					this.esperando = true;//seta como esperando
 					System.out.println("caminhão chegou, o frentista " + nome + " esta esperando");
-					break;
+					break;//sai do loop e a thread espera até o caminhão sair
 				}
 			}
 			while(posto.getCaminhaoChegou() == true){
-					Thread.sleep(3000);
+					Thread.sleep(3000);//thread esperando enquanto o caminhão está no posto
 			}
-			this.esperando = false;
+			this.esperando = false;//frentista não esta mais esperando
 			System.out.println("posto abastecido e o frentista volta a atividade");
-			while (posto.getLitros() > 99) {
+			while (posto.getLitros() > 99) {//volta a abastecer
 				posto.abastece(this);
 			}
 		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		

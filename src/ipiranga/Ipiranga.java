@@ -68,7 +68,7 @@ public class Ipiranga {
 			}
 			if (litros >= 100 && fila.size() != 0) {
 					if(frentista.dormindo){
-						frentista.dormindo = false;
+						frentista.dormindo = false;//verifica se o frentista estava dormindo, caso não estivesse ele abastece sem printar que acordou
 						System.out.println("ACORDEI CALMA AÍ - disse " + frentista.getNome());			
 					}
 					System.out.println(fila.getFirst().getIdentificador()+" sendo abastecido por: " + frentista.getNome());
@@ -90,27 +90,30 @@ public class Ipiranga {
 	
 	public synchronized void enchePosto(Caminhao caminhao){
 		try{
-			setCaminhaoChegou();
-			this.caminhaoChegou = true;
-			caminhaoChegou = true;
-			
+			setCaminhaoChegou(); //avisa que o caminhao chegou setando pra true
+//			this.caminhaoChegou = true;
+//			caminhaoChegou = true;
+//			
 			System.out.println("Caminhoneiro na area, esperando os carros que já estão abastecendo..." + caminhaoChegou);
 			notifyAll();
 //			wait();
 			while(!trabalhadores.get(0).esperando && !trabalhadores.get(1).esperando && !trabalhadores.get(2).esperando){
-				System.out.println("trabalhador 0 esperando: " + trabalhadores.get(0).esperando);
-				System.out.println("trabalhador 1 esperando: " + trabalhadores.get(1).esperando);
-				System.out.println("trabalhador 2 esperando: " + trabalhadores.get(2).esperando);
+//				System.out.println("trabalhador 0 esperando: " + trabalhadores.get(0).esperando);
+//				System.out.println("trabalhador 1 esperando: " + trabalhadores.get(1).esperando);
+//				System.out.println("trabalhador 2 esperando: " + trabalhadores.get(2).esperando);
 				notifyAll();
 				wait(5000);
+				//notifica todo mundo pros frentistas terminarem de abastecer
+				//espera caso algum frentista ainda esteja abastecendo
+				//quando todos estiverem esperando, ele sai do loop
 			}
 			System.out.println("Caminhão abastecendo, aguarde um instante...");
-			caminhaoAbastece();
-			wait(5000);
+			caminhaoAbastece(); //aumenta o tempo 
+			wait(5000); //abastece por 5 seg
 			abastecido = true;
 			System.out.println("Posto abastecido, eu to dando o fora daqui tá ligado meu irmão");
-			this.caminhaoChegou = false;
-			notifyAll();
+			this.caminhaoChegou = false; //camiinhão vai embora
+			notifyAll(); //acorda os frentistas
 		}catch(Exception e){
 		}
 	}

@@ -13,8 +13,8 @@ public class Caminhao extends Thread{
 	public void run() {
 		try {
 //			System.out.println("Caminhoneiro indo pro posto abastecer");
-			Thread.sleep(esperaPraAbastecer());
-			posto.enchePosto(this);
+			Thread.sleep(esperaPraAbastecer());//espera o tempo de chegar no posto
+			posto.enchePosto(this);//abastece o posto
 			
 		} catch (InterruptedException e) {
 		}
