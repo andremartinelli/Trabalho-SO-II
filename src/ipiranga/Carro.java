@@ -16,26 +16,16 @@ public class Carro extends Thread{
 	}
 	@Override
 	public void run() {
-//		System.out.println("Iniciou Carro");
 		try {
 			for (int i=0; i<10 && abastecido == false ;i++) {
-//				System.out.println("tenta entrar na fila de carros");
 				if (posto.entraFila(this)==true) {
 					System.out.println(identificador + " foi abastecido");
-//					fila = true;
 				}
-				System.out.println(identificador + " vai dar uma volta, fila cheia!");
+				System.out.println(identificador + " vai dar uma volta, fila cheia!" + posto.imprimeFila());
+				
 				Thread.sleep(getAleatorio());
 				
 			}
-//			if (fila==true) {
-//				
-////				System.out.println(identificador + " Abasteceu");
-//				
-//			}else {
-//				System.out.println("Eu sou o dono do carro "+ identificador +" vou para passeata");
-//				
-//			}
 			if(abastecido == false){
 				System.out.println("Eu sou o dono do carro "+ identificador +" vou para passeata");
 			}
@@ -57,7 +47,7 @@ public class Carro extends Thread{
 	}
 	public int getAleatorio(){
 		Random rand = new Random();
-		return (rand.nextInt(10000) + 5000);
+		return (rand.nextInt(5000) + 5000);
 		
 	}
 }

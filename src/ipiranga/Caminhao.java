@@ -12,7 +12,6 @@ public class Caminhao extends Thread{
 	@Override
 	public void run() {
 		try {
-//			System.out.println("Caminhoneiro indo pro posto abastecer");
 			Thread.sleep(esperaPraAbastecer());//espera o tempo de chegar no posto
 			posto.enchePosto(this);//abastece o posto
 			
